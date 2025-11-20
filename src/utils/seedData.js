@@ -30,15 +30,15 @@ export const PARTICIPANT_PASSWORDS = {
 
 // Tirage prédéfini - FIXÉ dans le code
 export const PREDEFINED_DRAW = [
-  { from: "Zéna", to: "Marcelle" },
-  { from: "Erichelle", to: "Ibrahim" },
-  { from: "Daisy", to: "orlane" },
-  { from: "Ibrahim", to: "Sarah" },
-  { from: "yves", to: "Denise" },
-  { from: "orlane", to: "Zéna" },
-  { from: "Sarah", to: "Erichelle" },
-  { from: "Denise", to: "Daisy" },
-  { from: "Marcelle", to: "yves" },
+  { from: "Zéna", to: "Sarah" },
+  { from: "Erichelle", to: "Daisy" },
+  { from: "Daisy", to: "yves" },
+  { from: "Ibrahim", to: "Marcelle" },
+  { from: "yves", to: "Zéna" },
+  { from: "orlane", to: "Ibrahim" },
+  { from: "Sarah", to: "Denise" },
+  { from: "Denise", to: "Erichelle" },
+  { from: "Marcelle", to: "orlane" },
 ];
 
 /**
