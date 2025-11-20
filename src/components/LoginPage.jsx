@@ -6,7 +6,6 @@ export function LoginPage({ participants, onLogin, hasDrawn }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [showParticipantPasswords, setShowParticipantPasswords] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -52,6 +51,24 @@ export function LoginPage({ participants, onLogin, hasDrawn }) {
           <p className="text-lg text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-400 font-light">
             {hasDrawn ? "Découvrez votre destinataire" : "En attente du tirage..."}
           </p>
+        </div>
+
+        {/* Liste des mots de passe des participants - Visible toujours */}
+        <div className="mb-8 bg-white/10 rounded-lg p-6 border border-orange-500/30 backdrop-blur-xl">
+          <p className="text-orange-300 text-xs mb-4 uppercase tracking-widest font-bold">📋 Identifiants de Test</p>
+          <div className="space-y-2 max-h-64 overflow-y-auto">
+            {participants.map((participant) => (
+              <div
+                key={participant}
+                className="flex justify-between items-center text-sm bg-white/5 p-3 rounded border border-white/10"
+              >
+                <span className="text-white font-medium">{participant}</span>
+                <span className="text-orange-400 font-mono text-xs bg-white/5 px-2 py-1 rounded">
+                  {PARTICIPANT_PASSWORDS[participant] || "N/A"}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Formulaire de connexion */}
@@ -142,37 +159,6 @@ export function LoginPage({ participants, onLogin, hasDrawn }) {
             </p>
           </div>
         </div>
-
-        {/* Liste des mots de passe des participants */}
-        {showParticipantPasswords && hasDrawn && (
-          <div className="mt-6 bg-white/5 rounded-lg p-4 border border-white/10 max-h-64 overflow-y-auto">
-            <p className="text-white/60 text-xs mb-4 uppercase tracking-widest">Mots de passe</p>
-            <div className="space-y-2">
-              {participants.map((participant) => (
-                <div
-                  key={participant}
-                  className="flex justify-between items-center text-sm"
-                >
-                  <span className="text-white/80">{participant}</span>
-                  <span className="text-orange-400 font-mono text-xs">
-                    {PARTICIPANT_PASSWORDS[participant] || "N/A"}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Toggle pour voir les mots de passe */}
-        {hasDrawn && (
-          <button
-            type="button"
-            onClick={() => setShowParticipantPasswords(!showParticipantPasswords)}
-            className="w-full mt-6 text-white/60 hover:text-white/80 text-xs uppercase tracking-widest font-light transition"
-          >
-            {showParticipantPasswords ? "Masquer" : "Afficher"} les mots de passe
-          </button>
-        )}
       </div>
 
     </div>
