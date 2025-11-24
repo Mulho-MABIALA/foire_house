@@ -34,11 +34,11 @@ export const PREDEFINED_DRAW = [
   { from: "Erichelle", to: "Daisy" },
   { from: "Daisy", to: "yves" },
   { from: "Ibrahim", to: "Marcelle" },
-  { from: "yves", to: "Zéna" },
-  { from: "orlane", to: "Ibrahim" },
-  { from: "Sarah", to: "Denise" },
+  { from: "yves", to: "orlane" },
+  { from: "orlane", to: "Denise" },
+  { from: "Sarah", to: "Ibrahim" },
   { from: "Denise", to: "Erichelle" },
-  { from: "Marcelle", to: "orlane" },
+  { from: "Marcelle", to: "Zéna" },
 ];
 
 /**
