@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { PARTICIPANT_PASSWORDS, SEED_PARTICIPANTS, PREDEFINED_DRAW } from "../utils/seedData";
+import { PARTICIPANT_PASSWORDS, SEED_PARTICIPANTS, PREDEFINED_DRAW, DRAW_VERSION } from "../utils/seedData";
 
 const STORAGE_KEY = "secret_santa_data";
 const AUTH_KEY = "secret_santa_auth";
+const VERSION_KEY = "secret_santa_draw_version";
 
 /**
  * Hook personnalisé pour gérer l'état du tirage au sort secret
@@ -15,24 +16,35 @@ export function useSecretSantaState() {
 
   // Charger les données depuis localStorage au démarrage
   useEffect(() => {
-    const savedData = localStorage.getItem(STORAGE_KEY);
+    const savedVersion = localStorage.getItem(VERSION_KEY);
 
-    if (savedData) {
-      // Si des données existent (tirage déjà fait), les charger
-      try {
-        const data = JSON.parse(savedData);
-        setParticipants(data.participants || SEED_PARTICIPANTS);
-        setDraws(data.draws || null);
-        setHasDrawn(data.hasDrawn || false);
-      } catch (error) {
-        console.error("Erreur lors du chargement:", error);
-        setParticipants(SEED_PARTICIPANTS);
-      }
-    } else {
-      // Sinon, commencer frais avec les participants par défaut
+    // Si la version a changé, réinitialiser les données
+    if (savedVersion !== String(DRAW_VERSION)) {
+      console.log(`Version mise à jour: ${savedVersion} → ${DRAW_VERSION}. Réinitialisation des données.`);
+      localStorage.setItem(VERSION_KEY, String(DRAW_VERSION));
       setParticipants(SEED_PARTICIPANTS);
       setDraws(null);
       setHasDrawn(false);
+    } else {
+      // Charger depuis localStorage si la version est la même
+      const savedData = localStorage.getItem(STORAGE_KEY);
+
+      if (savedData) {
+        try {
+          const data = JSON.parse(savedData);
+          setParticipants(data.participants || SEED_PARTICIPANTS);
+          setDraws(data.draws || null);
+          setHasDrawn(data.hasDrawn || false);
+        } catch (error) {
+          console.error("Erreur lors du chargement:", error);
+          setParticipants(SEED_PARTICIPANTS);
+        }
+      } else {
+        // Sinon, commencer frais avec les participants par défaut
+        setParticipants(SEED_PARTICIPANTS);
+        setDraws(null);
+        setHasDrawn(false);
+      }
     }
 
     // Charger l'utilisateur connecté s'il existe

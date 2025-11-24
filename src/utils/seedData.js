@@ -28,6 +28,9 @@ export const PARTICIPANT_PASSWORDS = {
   "Marcelle": "6789",
 };
 
+// Version du tirage - À incrémenter à chaque changement pour forcer la mise à jour sur tous les appareils
+export const DRAW_VERSION = 1;
+
 // Tirage prédéfini - FIXÉ dans le code
 export const PREDEFINED_DRAW = [
   { from: "Zéna", to: "Sarah" },
